@@ -6,4 +6,4 @@ import tree from './tree';
 
 const Rooted = root(tree, App);
 
-render(<Rooted />, document.getElementById('app'));
+render(<Rooted />, global.window.document.getElementById('app'));

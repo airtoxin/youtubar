@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable react/prefer-stateless-function */
+import React, { Component, PropTypes } from 'react';
 import { branch } from 'baobab-react/higher-order';
 
 class App extends Component {
@@ -12,6 +13,10 @@ class App extends Component {
   }
 }
 
+App.propTypes = {
+  count: PropTypes.number.isRequired,
+};
+
 export default branch({
-  count: ["count"]
+  count: ['count'],
 }, App);

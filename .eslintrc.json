@@ -9,6 +9,8 @@
     "async-await"
   ],
   "rules": {
-    "generator-star-spacing": "off"
+    "generator-star-spacing": "off",
+    "react/jsx-filename-extension": "off",
+    "import/no-extraneous-dependencies": "off"
   }
 }

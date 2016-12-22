@@ -3,18 +3,18 @@ import { ipcMain, ipcRenderer } from 'electron';
 import { isEqual } from 'lodash';
 
 export function browserTree() {
-  return new Promise(resolve => {
-    ipcMain.on('sync', (event, treeBase) => {
-      const { sender } = event;
+  return new Promise((resolve) => {
+    ipcMain.on('sync', (syncEvent, treeBase) => {
+      const { sender } = syncEvent;
       const tree = new Baobab(treeBase);
 
-      tree.on('update', event => {
-        const path = event.data.paths[0];
+      tree.on('update', (treeEvent) => {
+        const path = treeEvent.data.paths[0];
         const data = tree.get(path);
 
         sender.send('update', path, data);
       });
-      ipcMain.on('update', (event, path, data) => {
+      ipcMain.on('update', (updateEvent, path, data) => {
         if (isEqual(tree.get(path), data)) return;
         tree.set(path, data);
       });
@@ -27,14 +27,14 @@ export function browserTree() {
 export function rendererTree(treeBase) {
   const tree = new Baobab(treeBase);
 
-  tree.on('update', event => {
-    const path = event.data.paths[0];
+  tree.on('update', (updateEvent) => {
+    const path = updateEvent.data.paths[0];
     const data = tree.get(path);
 
     ipcRenderer.send('update', path, data);
   });
 
-  ipcRenderer.on('update', (event, path, data) => {
+  ipcRenderer.on('update', (updateEvent, path, data) => {
     if (isEqual(tree.get(path), data)) return;
     tree.set(path, data);
   });
