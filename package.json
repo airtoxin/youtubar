@@ -57,6 +57,7 @@
     "baobab": "2.3.4",
     "baobab-react": "2.1.2",
     "lodash": "4.17.2",
+    "menubar": "5.2.0",
     "react": "15.4.1",
     "react-dom": "15.4.1"
   }
