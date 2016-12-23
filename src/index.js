@@ -1,6 +1,5 @@
 import menubar from 'menubar';
-import main from './browser';
 
-const mb = menubar();
-
-main(mb.window);
+const mb = menubar({
+  index: `file://${process.cwd()}/lib/renderer/index.html`
+});

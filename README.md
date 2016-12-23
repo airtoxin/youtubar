@@ -4,6 +4,13 @@ menubar app for Youtube
 
 ## Documents
 
+## Develop
+
+```shell
+yarn && npm i electron
+npm run dev
+```
+
 ## License
 
 MIT

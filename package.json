@@ -4,12 +4,15 @@
   "description": "menubar app for Youtube",
   "main": "lib/index.js",
   "scripts": {
-    "build": "rimraf lib && babel src -d lib --copy-files",
-    "watch": "rimraf lib && babel src -d lib --copy-files --watch",
-    "dev": "electron .",
-    "lint": "eslint {src,test} --fix",
-    "unittest": "mocha --compilers js:babel-register --recursive test --timeout 10000",
-    "test": "npm run lint && npm run unittest",
+    "clean": "rimraf lib",
+    "build": "babel src -d lib --copy-files",
+    "watch": "babel src -d lib --copy-files --watch",
+    "start": "electron .",
+    "watch_n_start": "run-p watch start",
+    "dev": "run-s clean build watch_n_start",
+    "test:lint": "eslint {src,test} --fix",
+    "test:unit": "mocha --compilers js:babel-register --recursive test --timeout 10000",
+    "test": "run-p test:*",
     "package": "electron-packager . youtubar --out build --overwrite --ignore=src --platform=mas --arch=x64 --icon youtubar.icns"
   },
   "repository": {
@@ -50,6 +53,7 @@
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "6.8.0",
     "mocha": "3.2.0",
+    "npm-run-all": "3.1.2",
     "rimraf": "2.5.4"
   },
   "dependencies": {
