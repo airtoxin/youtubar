@@ -5,11 +5,12 @@
   "main": "dest/index.js",
   "scripts": {
     "clean": "rimraf dest",
+    "copy": "copyfiles node_modules/photonkit/dist/{css,fonts}/* -f dest/renderer/static",
     "build": "babel src --out-dir dest --copy-files",
     "watch": "babel src --out-dir dest --copy-files --watch",
     "start": "electron .",
     "watch_n_start": "run-p watch start",
-    "dev": "run-s clean build watch_n_start",
+    "dev": "run-s clean build copy watch_n_start",
     "test:lint": "eslint {src,test} --fix",
     "test:unit": "mocha --compilers js:babel-register --recursive test --timeout 10000",
     "test": "run-p test:*",
