@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
+    "copy": "copyfiles -f node_modules/photonkit/dist/{css,fonts}/* lib/static",
     "build": "babel src -d lib --copy-files",
     "watch": "babel src -d lib --copy-files --watch",
     "start": "electron .",
@@ -42,6 +43,7 @@
     "babel-preset-stage-2": "6.18.0",
     "babel-preset-stage-3": "6.17.0",
     "babel-register": "6.18.0",
+    "copyfiles": "1.0.0",
     "devtron": "1.4.0",
     "electron": "1.4.13",
     "electron-packager": "8.4.0",
@@ -62,6 +64,7 @@
     "baobab-react": "2.1.2",
     "lodash": "4.17.2",
     "menubar": "5.2.0",
+    "photonkit": "0.1.2",
     "react": "15.4.1",
     "react-dom": "15.4.1"
   }
