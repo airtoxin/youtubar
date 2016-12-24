@@ -7,5 +7,10 @@
     "stage-3",
     "react"
   ],
-  "plugins": ["transform-runtime"]
+  "plugins": [
+    "transform-runtime",
+    ["css-modules-transform", {
+      "extractCss": "./dest/renderer/static/style.css"
+    }]
+  ]
 }
