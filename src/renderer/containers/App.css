@@ -1,9 +1,9 @@
-.flex {
-  display: flex;
-  justify-content: center;
+.header {
+  padding: 0.5em;
+  border-bottom: 1px solid lightgray;
 }
 
-.right {
-  position: absolute;
-  right: 0;
+.input {
+  border: none;
+  outline: none;
 }

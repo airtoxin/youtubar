@@ -7,11 +7,9 @@ class App extends Component {
   render() {
     return (
       <div className="window">
-        <header className="toolbar toolbar-header">
-          <div className={`title ${styles.flex}`}>
-            <div>Header</div>
-            <div className={styles.right}>Clear</div>
-          </div>
+        <header className={styles.header}>
+          🔍
+          <input className={styles.input} placeholder="Search"/>
         </header>
         <div className="window-content">
           <div className="pane-group">
