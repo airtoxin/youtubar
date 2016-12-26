@@ -3,6 +3,7 @@ import url from 'url';
 import queryString from 'querystring';
 import { spawn } from 'child_process';
 import google from 'googleapis';
+import lodash from 'lodash';
 import tree from '../tree';
 import { callAction, saveAuthToken } from '../actions';
 
@@ -63,7 +64,7 @@ class Client {
 
   execute(scopes, callback) {
     const token = { ...tokenCursor.get() };
-    if (token) {
+    if (!lodash.isEmpty(token)) {
       this._setAuth(token);
       return callback();
     }
