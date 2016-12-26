@@ -1,4 +1,4 @@
-import { inspect } from 'util';
+/* eslint-disable import/prefer-default-export */
 import google from 'googleapis';
 import client from './client';
 
@@ -21,8 +21,8 @@ export function search(q) {
         q,
       }, (err, data) => {
         if (err) return reject(err);
-        resolve(data.items);
+        return resolve(data.items);
       });
     });
   });
-};
+}

@@ -1,8 +1,8 @@
 import * as searchService from './services/search';
-import tree from './tree';
+import tr from './tree';
 
 export function callAction(fn, ...args) {
-  fn(tree, ...args);
+  fn(tr, ...args);
 }
 
 export function saveAuthToken(tree, token) {
@@ -15,12 +15,11 @@ export function search(tree, q) {
     items: [],
   });
 
-  searchService.search(q).then(items => {
+  searchService.search(q).then((items) => {
     tree.set(['search', 'items'], items);
   });
 }
 
 export function addQueue(tree, item) {
   tree.push(['queue'], item);
-  console.log("@tree.get('queue')", tree.get('queue'));
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import http from 'http';
 import url from 'url';
 import queryString from 'querystring';
@@ -19,7 +20,7 @@ class Client {
     this.oAuth2Client = new OAuth2Client(
       process.env.CLIENT_ID,
       process.env.CLIENT_SECRET,
-      process.env.REDIRECT_URI
+      process.env.REDIRECT_URI,
     );
   }
 
@@ -47,6 +48,7 @@ class Client {
   _handler(request, response, server, callback) {
     const qs = queryString.parse(url.parse(request.url).query);
     this.oAuth2Client.getToken(qs.code, (err, token) => {
+      // eslint-disable-next-line no-console
       if (err) console.error(`Error getting oAuth token: ${err}`);
 
       callAction(saveAuthToken, token);
@@ -70,7 +72,7 @@ class Client {
     }
     if (this.isAuthenticated) return callback();
 
-    this._authenticate(scopes, callback);
+    return this._authenticate(scopes, callback);
   }
 }
 

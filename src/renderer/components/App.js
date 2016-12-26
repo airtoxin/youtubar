@@ -41,11 +41,12 @@ class App extends Component {
             placeholder="Search"
             ref={input => (this.inputElement = input)}
             onChange={this.handleChange}
-            onKeyPress={this.handleKeypress}/>
+            onKeyPress={this.handleKeypress}
+          />
         </header>
         <div>
           {this.props.searchItems.map(item => (
-            <SearchItem key={item.id.videoId} item={item}/>
+            <SearchItem key={item.id.videoId} item={item} />
           ))}
         </div>
       </div>
@@ -54,8 +55,21 @@ class App extends Component {
 }
 
 App.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   searchQuery: PropTypes.string.isRequired,
-  searchItems: PropTypes.array,
+  searchItems: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.shape({
+      videoId: PropTypes.string.isRequired,
+    }),
+    snippet: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      thumbnails: PropTypes.shape({
+        default: PropTypes.shape({
+          url: PropTypes.string.isRequired,
+        }),
+      }),
+    }),
+  })).isRequired,
 };
 
 export default branch({

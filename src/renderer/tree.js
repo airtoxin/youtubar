@@ -12,11 +12,11 @@ const tree = rendererTree({
   queue: [],
 });
 
-Object.entries(localStorageService.getAll()).map(([key, value]) => {
+Object.entries(localStorageService.getAll()).forEach(([key, value]) => {
   tree.set(key.split('/'), value);
 });
 
-tree.select(['auth', 'token']).on('update', updatee => {
+tree.select(['auth', 'token']).on('update', (updatee) => {
   const token = updatee.target.get();
   if (token) {
     localStorageService.set(updatee.target.path.join('/'), token);
