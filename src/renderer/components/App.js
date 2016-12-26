@@ -4,6 +4,7 @@ import { branch } from 'baobab-react/higher-order';
 import styles from './App.css';
 import { search } from '../actions';
 import SearchItem from './SearchItem';
+import QueueItem from './QueueItem';
 
 class App extends Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class App extends Component {
         </header>
         <div>
           {this.props.searchItems.map(item => (
-            <SearchItem key={item.id.videoId} item={item} />
+            <SearchItem key={item.id.videoId} item={item}/>
           ))}
         </div>
       </div>
@@ -69,7 +70,13 @@ class App extends Component {
   }
 
   renderSidebarContent() {
-    return <div className={styles.sidebar}><b>Sidebar content</b></div>;
+    return (
+      <div className={styles.sidebar}>
+        {this.props.queue.map((item, i) => (
+          <QueueItem key={`${item.id.videoId}-${i}`} item={item}/>
+        ))}
+      </div>
+    );
   }
 
   render() {
@@ -107,4 +114,5 @@ App.propTypes = {
 export default branch({
   searchQuery: ['search', 'query'],
   searchItems: ['search', 'items'],
+  queue: ['queue']
 }, App);

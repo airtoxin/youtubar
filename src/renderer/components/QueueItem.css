@@ -1,0 +1,27 @@
+.flex {
+  display: flex;
+}
+
+.container {
+  padding: .5em;
+  transition: all .1s;
+}
+
+.noselect {
+  -webkit-user-select: none;
+}
+
+.thumbnail {
+  width: 8em;
+  height: 4.5em;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: .5em;
+}
+
+.title {
+  color: #333;
+  font-weight: bold;
+}
