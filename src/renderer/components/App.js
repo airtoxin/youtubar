@@ -8,10 +8,16 @@ class App extends Component {
   constructor(props) {
     super();
 
+    this.inputElement = null;
+
     this.state = { searchQuery: props.searchQuery };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.inputElement) this.inputElement.focus();
   }
 
   handleChange(event) {
@@ -33,6 +39,7 @@ class App extends Component {
           <input
             className={styles.input}
             placeholder="Search"
+            ref={input => (this.inputElement = input)}
             onChange={this.handleChange}
             onKeyPress={this.handleKeypress}/>
         </header>
