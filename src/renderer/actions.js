@@ -19,3 +19,8 @@ export function search(tree, q) {
     tree.set(['search', 'items'], items);
   });
 }
+
+export function addQueue(tree, item) {
+  tree.push(['queue'], item);
+  console.log("@tree.get('queue')", tree.get('queue'));
+}

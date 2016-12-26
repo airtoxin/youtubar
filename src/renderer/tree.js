@@ -8,7 +8,8 @@ const tree = rendererTree({
   search: {
     query: '',
     items: [],
-  }
+  },
+  queue: [],
 });
 
 Object.entries(localStorageService.getAll()).map(([key, value]) => {
