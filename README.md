@@ -6,6 +6,10 @@ menubar app for Youtube
 
 ## Develop
 
+set environment variable
+
++ [`SECRET_FILE_PATH`](https://console.developers.google.com/apis/credentials)
+
 ```shell
 yarn && npm i electron
 npm run dev
