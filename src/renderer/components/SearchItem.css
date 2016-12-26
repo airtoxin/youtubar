@@ -1,0 +1,8 @@
+.flex {
+  display: flex;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+}
