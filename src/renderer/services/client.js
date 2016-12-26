@@ -26,7 +26,6 @@ class Client {
 
   _authenticate(scopes, callback) {
     this.authorizeUrl = this.oAuth2Client.generateAuthUrl({
-      access_type: 'offline',
       scope: scopes.join(' '),
     });
     const server = http.createServer((request, response) => {
@@ -60,7 +59,10 @@ class Client {
   }
 
   _setAuth(token) {
-    this.oAuth2Client.credentials = token;
+    this.oAuth2Client.setCredentials({
+      ...token,
+      expiry_date: Date.now() + (1000 * 60 * 60 * 24 * 30),
+    });
     this.isAuthenticated = true;
   }
 
