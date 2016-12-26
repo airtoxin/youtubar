@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Sidebar from 'react-sidebar';
 import { branch } from 'baobab-react/higher-order';
 import styles from './App.css';
 import { search } from '../actions';
@@ -10,18 +11,27 @@ class App extends Component {
 
     this.inputElement = null;
 
-    this.state = { searchQuery: props.searchQuery };
+    this.state = {
+      searchQuery: props.searchQuery,
+      sidebarOpen: false,
+    };
 
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     if (this.inputElement) this.inputElement.focus();
   }
 
+  onSetSidebarOpen(open) {
+    this.setState({ ...this.state, sidebarOpen: open });
+  }
+
   handleChange(event) {
-    this.setState({ searchQuery: event.target.value });
+    this.setState({ ...this.state, searchQuery: event.target.value });
   }
 
   handleKeypress(event) {
@@ -31,7 +41,11 @@ class App extends Component {
     }
   }
 
-  render() {
+  handleClick() {
+    this.setState({ ...this.state, sidebarOpen: true });
+  }
+
+  renderMainContent() {
     return (
       <div>
         <header className={styles.header}>
@@ -43,6 +57,7 @@ class App extends Component {
             onChange={this.handleChange}
             onKeyPress={this.handleKeypress}
           />
+          <button className={styles.menuButton} onClick={this.handleClick}>三</button>
         </header>
         <div>
           {this.props.searchItems.map(item => (
@@ -50,6 +65,23 @@ class App extends Component {
           ))}
         </div>
       </div>
+    );
+  }
+
+  renderSidebarContent() {
+    return <div className={styles.sidebar}><b>Sidebar content</b></div>;
+  }
+
+  render() {
+    return (
+      <Sidebar
+        sidebar={this.renderSidebarContent()}
+        open={this.state.sidebarOpen}
+        onSetOpen={this.onSetSidebarOpen}
+        pullRight={true}
+      >
+        {this.renderMainContent()}
+      </Sidebar>
     );
   }
 }

@@ -9,3 +9,20 @@
   border: none;
   outline: none;
 }
+
+.menuButton {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  background-color: white;
+  outline: none;
+}
+
+.menuButton:active {
+  background-color: lightgray;
+}
+
+.sidebar {
+  width: 300px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, .8);
+}
