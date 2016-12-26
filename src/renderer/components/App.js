@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component, PropTypes } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import styles from './App.css';
