@@ -22,7 +22,7 @@ const SearchItem = ({ item, dispatch }) => (
 
 SearchItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  item: PropTypes.arrayOf(PropTypes.shape({
+  item: PropTypes.shape({
     id: PropTypes.shape({
       videoId: PropTypes.string.isRequired,
     }),
@@ -34,7 +34,7 @@ SearchItem.propTypes = {
         }),
       }),
     }),
-  })).isRequired,
+  }).isRequired,
 };
 
 export default branch({
