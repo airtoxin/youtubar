@@ -8,7 +8,11 @@ menubar app for Youtube
 
 set environment variable
 
-+ [`SECRET_FILE_PATH`](https://console.developers.google.com/apis/credentials)
+https://console.developers.google.com/apis/credentials
+
++ `CLIENT_ID`
++ `CLIENT_SECRET`
++ `REDIRECT_URI`
 
 ```shell
 yarn && npm i electron

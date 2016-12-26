@@ -9,6 +9,7 @@
   ],
   "plugins": [
     "transform-runtime",
+    "transform-inline-environment-variables",
     ["css-modules-transform", {
       "extractCss": "./dest/renderer/static/style.css"
     }]

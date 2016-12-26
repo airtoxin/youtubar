@@ -5,7 +5,6 @@ import { spawn } from 'child_process';
 import google from 'googleapis';
 
 const OAuth2Client = google.auth.OAuth2;
-const secrets = require(process.env.SECRET_FILE_PATH);
 
 class Client {
   constructor(options = { scopes: [] }) {
@@ -14,9 +13,9 @@ class Client {
     this._called = false;
 
     this.oAuth2Client = new OAuth2Client(
-      secrets.web.client_id,
-      secrets.web.client_secret,
-      secrets.web.redirect_uris[0]
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET,
+      process.env.REDIRECT_URI
     );
   }
 
@@ -29,7 +28,7 @@ class Client {
       this._callOnce(() => {
         this._handler(request, response, server, callback);
       });
-    }).listen(8080, () => {
+    }).listen(url.parse(process.env.REDIRECT_URI).port, () => {
       spawn('open', [this.authorizeUrl]);
     });
   }
@@ -62,7 +61,4 @@ class Client {
   }
 }
 
-new Client().execute(
-  ['https://www.googleapis.com/auth/youtube'],
-  tokens => console.log(tokens),
-);
+export default new Client();
