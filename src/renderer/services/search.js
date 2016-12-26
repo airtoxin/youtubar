@@ -16,6 +16,8 @@ export function search(q) {
     client.execute(scopes, () => {
       youtube.search.list({
         part: 'snippet',
+        type: 'video',
+        maxResults: 20,
         q,
       }, (err, data) => {
         if (err) return reject(err);

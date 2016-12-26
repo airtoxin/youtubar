@@ -3,7 +3,10 @@ import url from 'url';
 import queryString from 'querystring';
 import { spawn } from 'child_process';
 import google from 'googleapis';
+import tree from '../tree';
+import { callAction, saveAuthToken } from '../actions';
 
+const tokenCursor = tree.select(['auth', 'token']);
 const OAuth2Client = google.auth.OAuth2;
 
 class Client {
@@ -42,22 +45,31 @@ class Client {
 
   _handler(request, response, server, callback) {
     const qs = queryString.parse(url.parse(request.url).query);
-    this.oAuth2Client.getToken(qs.code, (err, tokens) => {
-      if (err) console.error(`Error getting oAuth tokens: ${err}`);
-      this.oAuth2Client.setCredentials(tokens);
-      this.isAuthenticated = true;
+    this.oAuth2Client.getToken(qs.code, (err, token) => {
+      if (err) console.error(`Error getting oAuth token: ${err}`);
+
+      callAction(saveAuthToken, token);
+      this._setAuth(token);
       response.end('Authentication successful!');
-      callback(tokens);
+      callback();
       server.close();
     });
   }
 
+  _setAuth(token) {
+    this.oAuth2Client.credentials = token;
+    this.isAuthenticated = true;
+  }
+
   execute(scopes, callback) {
-    if (this.isAuthenticated) {
-      callback();
-    } else {
-      this._authenticate(scopes, callback);
+    const token = { ...tokenCursor.get() };
+    if (token) {
+      this._setAuth(token);
+      return callback();
     }
+    if (this.isAuthenticated) return callback();
+
+    this._authenticate(scopes, callback);
   }
 }
 

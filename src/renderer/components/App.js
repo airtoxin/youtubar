@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import styles from './App.css';
 import { search } from '../actions';
+import SearchItem from './SearchItem';
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="window">
+      <div>
         <header className={styles.header}>
           🔍
           <input
@@ -35,10 +36,10 @@ class App extends Component {
             onChange={this.handleChange}
             onKeyPress={this.handleKeypress}/>
         </header>
-        <div className="window-content">
-          {JSON.stringify(this.props.searchItems)}
-          <div className="pane-group">
-          </div>
+        <div>
+          {this.props.searchItems.map(item => (
+            <SearchItem key={item.id.videoId} item={item}/>
+          ))}
         </div>
       </div>
     );
