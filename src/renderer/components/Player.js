@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import Youtube from 'react-youtube';
 import styles from './Player.css';
+import { removeQueue } from '../actions';
 
 class Player extends Component {
   constructor() {
@@ -11,6 +12,7 @@ class Player extends Component {
 
     this.handleOnReady = this.handleOnReady.bind(this);
     this.handleOnStateChange = this.handleOnStateChange.bind(this);
+    this.handleOnEnd = this.handleOnEnd.bind(this);
   }
 
   componentWillUpdate(nextProps) {
@@ -39,6 +41,10 @@ class Player extends Component {
     this.switchPlayer(this.props.player);
   }
 
+  handleOnEnd() {
+    this.props.dispatch(removeQueue, 0);
+  }
+
   render() {
     if (!this.props.playing) return null;
 
@@ -49,6 +55,7 @@ class Player extends Component {
           id="playing-video"
           onReady={this.handleOnReady}
           onStateChange={this.handleOnStateChange}
+          onEnd={this.handleOnEnd}
         />
       </div>
     );
