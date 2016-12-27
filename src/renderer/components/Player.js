@@ -10,13 +10,18 @@ class Player extends Component {
     this.api = null;
 
     this.handleOnReady = this.handleOnReady.bind(this);
+    this.handleOnStateChange = this.handleOnStateChange.bind(this);
   }
 
   componentWillUpdate(nextProps) {
     if (!nextProps.playing) return;
     if (!this.api) return;
 
-    switch (nextProps.player) {
+    this.switchPlayer(nextProps.player);
+  }
+
+  switchPlayer(player) {
+    switch (player) {
       case 'playing':
         return this.api.playVideo();
       case 'paused':
@@ -25,8 +30,13 @@ class Player extends Component {
   }
 
   handleOnReady(event) {
-    event.target.playVideo();
     this.api = event.target;
+    this.switchPlayer(this.props.player);
+  }
+
+  handleOnStateChange(event) {
+    this.api = event.target;
+    this.switchPlayer(this.props.player);
   }
 
   render() {
@@ -38,6 +48,7 @@ class Player extends Component {
           videoId={this.props.playing.id.videoId}
           id="playing-video"
           onReady={this.handleOnReady}
+          onStateChange={this.handleOnStateChange}
         />
       </div>
     );

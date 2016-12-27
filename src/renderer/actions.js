@@ -28,7 +28,7 @@ export function addQueue(tree, item) {
 export function removeQueue(tree, index) {
   const cursor = tree.select(['queue']);
   const queue = cursor.get();
-  const newQueue = [].concat(queue.slice(0, index), queue.slice(index + 1, queue.length - 1));
+  const newQueue = [].concat(queue.slice(0, index), queue.slice(index + 1, queue.length));
   cursor.set(newQueue)
 }
 
