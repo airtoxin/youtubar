@@ -23,10 +23,6 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    if (this.inputElement) this.inputElement.focus();
-  }
-
   onSetSidebarOpen(open) {
     this.setState({ ...this.state, sidebarOpen: open });
   }
@@ -50,6 +46,23 @@ class App extends Component {
     return (
       <div>
         <header className={styles.header}>
+          <marquee>Now playing ♪ - </marquee>
+          <button className={styles.menuButton} onClick={this.handleClick}>三</button>
+        </header>
+        {this.props.queue.map((item, i) => (
+          <QueueItem key={`${item.id.videoId}-${i}`} item={item} />
+        ))}
+      </div>
+    );
+  }
+
+  renderSidebarContent() {
+    // avoid to warping sidebar
+    if (this.inputElement) setTimeout(() => this.inputElement.focus(), 100);
+
+    return (
+      <div className={styles.sidebar}>
+        <header className={styles.header}>
           🔍
           <input
             className={styles.input}
@@ -58,23 +71,12 @@ class App extends Component {
             onChange={this.handleChange}
             onKeyPress={this.handleKeypress}
           />
-          <button className={styles.menuButton} onClick={this.handleClick}>三</button>
         </header>
         <div>
           {this.props.searchItems.map(item => (
             <SearchItem key={item.id.videoId} item={item} />
           ))}
         </div>
-      </div>
-    );
-  }
-
-  renderSidebarContent() {
-    return (
-      <div className={styles.sidebar}>
-        {this.props.queue.map((item, i) => (
-          <QueueItem key={`${item.id.videoId}-${i}`} item={item} />
-        ))}
       </div>
     );
   }
