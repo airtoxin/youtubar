@@ -62,7 +62,7 @@ class App extends Component {
         </header>
         <div>
           {this.props.searchItems.map(item => (
-            <SearchItem key={item.id.videoId} item={item}/>
+            <SearchItem key={item.id.videoId} item={item} />
           ))}
         </div>
       </div>
@@ -73,7 +73,7 @@ class App extends Component {
     return (
       <div className={styles.sidebar}>
         {this.props.queue.map((item, i) => (
-          <QueueItem key={`${item.id.videoId}-${i}`} item={item}/>
+          <QueueItem key={`${item.id.videoId}-${i}`} item={item} />
         ))}
       </div>
     );
@@ -85,7 +85,7 @@ class App extends Component {
         sidebar={this.renderSidebarContent()}
         open={this.state.sidebarOpen}
         onSetOpen={this.onSetSidebarOpen}
-        pullRight={true}
+        pullRight
       >
         {this.renderMainContent()}
       </Sidebar>
@@ -114,5 +114,5 @@ App.propTypes = {
 export default branch({
   searchQuery: ['search', 'query'],
   searchItems: ['search', 'items'],
-  queue: ['queue']
+  queue: ['queue'],
 }, App);

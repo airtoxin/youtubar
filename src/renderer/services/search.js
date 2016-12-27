@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import google from 'googleapis';
-import client from './client';
+import apiClient from './api-client';
 
 const scopes = [
   'https://www.googleapis.com/auth/youtube',
@@ -8,12 +8,12 @@ const scopes = [
 
 const youtube = google.youtube({
   version: 'v3',
-  auth: client.oAuth2Client,
+  auth: apiClient.oAuth2Client,
 });
 
-export function search(q) {
+export function search(q, token) {
   return new Promise((resolve, reject) => {
-    client.execute(scopes, () => {
+    apiClient.execute(scopes, token, () => {
       youtube.search.list({
         part: 'snippet',
         type: 'video',

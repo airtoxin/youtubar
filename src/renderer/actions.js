@@ -15,7 +15,8 @@ export function search(tree, q) {
     items: [],
   });
 
-  searchService.search(q).then((items) => {
+  const token = { ...tree.get(['auth', 'token']) };
+  searchService.search(q, token).then((items) => {
     tree.set(['search', 'items'], items);
   });
 }

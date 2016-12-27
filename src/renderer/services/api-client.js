@@ -5,10 +5,8 @@ import queryString from 'querystring';
 import { spawn } from 'child_process';
 import google from 'googleapis';
 import lodash from 'lodash';
-import tree from '../tree';
 import { callAction, saveAuthToken } from '../actions';
 
-const tokenCursor = tree.select(['auth', 'token']);
 const OAuth2Client = google.auth.OAuth2;
 
 class Client {
@@ -51,30 +49,36 @@ class Client {
       if (err) console.error(`Error getting oAuth token: ${err}`);
 
       callAction(saveAuthToken, token);
-      this._setAuth(token);
+      this.setAuth(token);
       response.end('Authentication successful!');
       callback();
       server.close();
     });
   }
 
-  _setAuth(token) {
-    this.oAuth2Client.setCredentials({
-      ...token,
-      expiry_date: Date.now() + (1000 * 60 * 60 * 24 * 30),
-    });
+  setAuth(token) {
+    this.oAuth2Client.setCredentials(token);
     this.isAuthenticated = true;
   }
 
-  execute(scopes, callback) {
-    const token = { ...tokenCursor.get() };
+  execute(scopes, token, callback) {
     if (!lodash.isEmpty(token)) {
-      this._setAuth(token);
+      this.setAuth(token);
       return callback();
     }
     if (this.isAuthenticated) return callback();
 
     return this._authenticate(scopes, callback);
+  }
+
+  refreshToken() {
+    return new Promise((resolve, reject) => {
+      this.oAuth2Client.refreshAccessToken((err, newToken) => {
+        if (err) return reject(err);
+
+        return resolve(newToken);
+      });
+    });
   }
 }
 
