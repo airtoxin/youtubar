@@ -18,14 +18,25 @@ function splitPaths(tree, updatee, next) {
   });
 }
 
-function playVideoInQueue(tree, updatee, next) {
-  if (updatee.data.paths[0][0] === 'queue') {
-    if (updatee.data.previousData.queue.length === 0 &&
-      updatee.data.currentData.queue.length !== 0) {
-        const video = getTarget(updatee);
-        tree.set(['playing'], video);
-        tree.set(['player'], 'playing');
-      }
+function playWhenVideoAddedFirstTime(tree, updatee, next) {
+  if (matchPath(updatee, ['queue', '0'])) {
+    const video = getTarget(updatee);
+    tree.set(['playing'], video);
+    tree.set(['player'], 'playing');
+  }
+  next(tree, updatee);
+}
+
+function whenUpdateQueue(tree, updatee, next) {
+  if (matchPath(updatee, ['queue'])) {
+    const video = tree.get(['queue', '0']);
+    if (video) {
+      tree.set(['playing'], video);
+      tree.set(['player'], 'playing');
+    } else {
+      tree.set(['playing'], null);
+      tree.set(['player'], 'paused');
+    }
   }
   next(tree, updatee);
 }
@@ -57,7 +68,8 @@ function log(tree, updatee, next) {
 
 export default [
   splitPaths,
-  playVideoInQueue,
+  playWhenVideoAddedFirstTime,
+  whenUpdateQueue,
   serializeToken,
   updateClientToken,
   log,
