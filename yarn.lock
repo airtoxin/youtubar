@@ -2554,6 +2554,10 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+
 loader-utils@^0.2.16:
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.16.tgz#f08632066ed8282835dff88dfb52704765adee6d"
@@ -2639,6 +2643,10 @@ lodash.isarguments@^3.0.0:
 lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
+
+lodash.isequal@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.4.0.tgz#6295768e98e14dc15ce8d362ef6340db82852031"
 
 lodash.keys@^3.0.0:
   version "3.1.2"
@@ -3265,6 +3273,13 @@ react-sidebar@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-sidebar/-/react-sidebar-2.2.1.tgz#a8faf6a3c62ddc562c70680d5d016fe9741b585f"
 
+react-youtube@7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/react-youtube/-/react-youtube-7.3.0.tgz#eb1228866f48124ceb7f9825e7d4b562294584ef"
+  dependencies:
+    lodash.isequal "^4.4.0"
+    youtube-player "^4.0.1"
+
 react@15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
@@ -3627,6 +3642,10 @@ single-line-log@^1.1.2:
   resolved "https://registry.yarnpkg.com/single-line-log/-/single-line-log-1.1.2.tgz#c2f83f273a3e1a16edb0995661da0ed5ef033364"
   dependencies:
     string-width "^1.0.1"
+
+sister@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/sister/-/sister-3.0.0.tgz#88eb57047cb283da1e070b1a7cae8212f3bcb2db"
 
 slash@^1.0.0:
   version "1.0.0"
@@ -4020,3 +4039,11 @@ yauzl@2.4.1:
   resolved "https://registry.yarnpkg.com/yauzl/-/yauzl-2.4.1.tgz#9528f442dab1b2284e58b4379bb194e22e0c4005"
   dependencies:
     fd-slicer "~1.0.1"
+
+youtube-player@^4.0.1:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/youtube-player/-/youtube-player-4.0.2.tgz#e8fdf696c958b7565c829051b5b7fa7bfed08380"
+  dependencies:
+    load-script "^1.0.0"
+    lodash "^4.3.0"
+    sister "^3.0.0"

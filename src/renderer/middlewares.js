@@ -2,6 +2,10 @@ import lodash from 'lodash';
 import * as localStorageService from './services/localstorage';
 import apiClientService from './services/api-client';
 
+const matchPath = (updatee, path) => {
+  return lodash.isEqual(updatee.data.paths[0], path);
+}
+
 function splitPaths(tree, updatee, next) {
   updatee.data.paths.forEach((path) => {
     const copy = lodash.cloneDeep(updatee);
@@ -10,8 +14,18 @@ function splitPaths(tree, updatee, next) {
   });
 }
 
+function playVideoInQueue(tree, updatee, next) {
+  if (updatee.data.paths[0][0] === 'queue') {
+    if (updatee.data.previousData.queue.length === 0 &&
+      updatee.data.currentData.queue.length !== 0) {
+      // play!!!!!!!
+    }
+  }
+  next(tree, updatee);
+}
+
 function serializeToken(tree, updatee, next) {
-  if (lodash.isEqual(updatee.data.paths[0], ['auth', 'token'])) {
+  if (matchPath(updatee, ['auth', 'token'])) {
     const token = updatee.target.get(updatee.data.paths[0]);
     localStorageService.set(updatee.data.paths[0].join('/'), token);
   }
@@ -19,7 +33,7 @@ function serializeToken(tree, updatee, next) {
 }
 
 function updateClientToken(tree, updatee, next) {
-  if (lodash.isEqual(updatee.data.paths[0], ['auth', 'token'])) {
+  if (matchPath(updatee, ['auth', 'token'])) {
     const token = updatee.target.get(updatee.data.paths[0]);
     apiClientService.setAuth(token);
   }
@@ -37,6 +51,7 @@ function log(tree, updatee, next) {
 
 export default [
   splitPaths,
+  playVideoInQueue,
   serializeToken,
   updateClientToken,
   log,
