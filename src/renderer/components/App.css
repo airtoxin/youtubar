@@ -4,6 +4,21 @@
   border-bottom: 1px solid lightgray;
 }
 
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexFixedHeader {
+  flex: 0 0 auto;
+}
+
+.flexScrollableContent {
+  flex: 1 1 auto;
+  position: relative;
+  overflow-y: auto;
+}
+
 .input {
   flex-grow: 1;
   border: none;

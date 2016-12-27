@@ -9,6 +9,7 @@ const tree = rendererTree({
     items: [],
   },
   queue: [],
+  playing: null,
 });
 
 export default tree;

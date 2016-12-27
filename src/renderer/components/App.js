@@ -5,6 +5,7 @@ import styles from './App.css';
 import { search } from '../actions';
 import SearchItem from './SearchItem';
 import QueueItem from './QueueItem';
+import Player from './Player';
 
 class App extends Component {
   constructor(props) {
@@ -52,6 +53,7 @@ class App extends Component {
         {this.props.queue.map((item, i) => (
           <QueueItem key={`${item.id.videoId}-${i}`} item={item} />
         ))}
+        <Player />
       </div>
     );
   }
@@ -61,8 +63,8 @@ class App extends Component {
     if (this.inputElement) setTimeout(() => this.inputElement.focus(), 100);
 
     return (
-      <div className={styles.sidebar}>
-        <header className={styles.header}>
+      <div className={`${styles.sidebar} ${styles.flex}`}>
+        <header className={`${styles.header} ${styles.flexFixedHeader}`}>
           🔍
           <input
             className={styles.input}
@@ -72,7 +74,7 @@ class App extends Component {
             onKeyPress={this.handleKeypress}
           />
         </header>
-        <div>
+        <div className={styles.flexScrollableContent}>
           {this.props.searchItems.map(item => (
             <SearchItem key={item.id.videoId} item={item} />
           ))}
