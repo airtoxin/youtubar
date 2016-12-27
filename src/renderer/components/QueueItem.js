@@ -48,6 +48,7 @@ class QueueItem extends Component {
 
 QueueItem.propTypes = {
   index: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
   item: PropTypes.shape({
     id: PropTypes.shape({
       videoId: PropTypes.string.isRequired,

@@ -28,6 +28,8 @@ class Player extends Component {
         return this.api.playVideo();
       case 'paused':
         return this.api.pauseVideo();
+      default:
+        return null;
     }
   }
 
@@ -61,6 +63,24 @@ class Player extends Component {
     );
   }
 }
+
+Player.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  playing: PropTypes.shape({
+    id: PropTypes.shape({
+      videoId: PropTypes.string.isRequired,
+    }),
+    snippet: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      thumbnails: PropTypes.shape({
+        default: PropTypes.shape({
+          url: PropTypes.string.isRequired,
+        }),
+      }),
+    }),
+  }),
+  player: PropTypes.oneOf(['playing', 'paused']),
+};
 
 export default branch({
   playing: ['playing'],

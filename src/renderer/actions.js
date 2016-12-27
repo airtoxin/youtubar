@@ -29,7 +29,7 @@ export function removeQueue(tree, index) {
   const cursor = tree.select(['queue']);
   const queue = cursor.get();
   const newQueue = [].concat(queue.slice(0, index), queue.slice(index + 1, queue.length));
-  cursor.set(newQueue)
+  cursor.set(newQueue);
 }
 
 export function togglePlayPause(tree) {
@@ -39,5 +39,7 @@ export function togglePlayPause(tree) {
       return cursor.set('playing');
     case 'playing':
       return cursor.set('paused');
+    default:
+      return null;
   }
 }

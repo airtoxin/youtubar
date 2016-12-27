@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-marquee */
 import React, { Component, PropTypes } from 'react';
 import Sidebar from 'react-sidebar';
 import MenuIcon from 'react-icons/lib/fa/bars';
@@ -52,7 +53,7 @@ class App extends Component {
       <div className={`${styles.main} ${styles.flex}`}>
         <header className={`${styles.header} ${styles.flexFixedHeader}`}>
           <marquee>Now playing ♪ - </marquee>
-          <button className={styles.menuButton} onClick={this.handleClick}><MenuIcon/></button>
+          <button className={styles.menuButton} onClick={this.handleClick}><MenuIcon /></button>
         </header>
         <div className={styles.flexScrollableContent}>
           {this.props.queue.map((item, i) => (
@@ -76,7 +77,7 @@ class App extends Component {
     return (
       <div className={`${styles.sidebar} ${styles.flex}`}>
         <header className={`${styles.header} ${styles.flexFixedHeader}`}>
-          <SearchIcon/>
+          <SearchIcon />
           <input
             className={styles.input}
             placeholder="Search"

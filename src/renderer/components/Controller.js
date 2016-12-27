@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions,no-nested-ternary */
 import React, { Component, PropTypes } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import PlayCircle from 'react-icons/lib/fa/play-circle-o';
@@ -21,15 +22,17 @@ class Controller extends Component {
   }
 
   renderPlayPause() {
-    if (this.props.queue.length === 0) return (
-      <section><PlayCircle className={styles.disabled}/></section>
-    );
+    if (this.props.queue.length === 0) {
+      return (
+        <section><PlayCircle className={styles.disabled} /></section>
+      );
+    }
 
     return (
       <section onClick={this.handleClickPlayPause}>
         {this.props.player === 'paused' ?
-          <PlayCircle/> : this.props.player === 'playing' ?
-          <PauseCircle/> :
+          <PlayCircle /> : this.props.player === 'playing' ?
+            <PauseCircle /> :
           null}
       </section>
     );
@@ -50,6 +53,19 @@ class Controller extends Component {
 Controller.propTypes = {
   dispatch: PropTypes.func.isRequired,
   player: PropTypes.string.isRequired,
+  queue: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.shape({
+      videoId: PropTypes.string.isRequired,
+    }),
+    snippet: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      thumbnails: PropTypes.shape({
+        default: PropTypes.shape({
+          url: PropTypes.string.isRequired,
+        }),
+      }),
+    }),
+  })).isRequired,
 };
 
 export default branch({
