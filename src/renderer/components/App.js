@@ -45,14 +45,17 @@ class App extends Component {
 
   renderMainContent() {
     return (
-      <div>
-        <header className={styles.header}>
+      <div className={`${styles.main} ${styles.flex}`}>
+        <header className={`${styles.header} ${styles.flexFixedHeader}`}>
           <marquee>Now playing ♪ - </marquee>
           <button className={styles.menuButton} onClick={this.handleClick}>三</button>
         </header>
-        {this.props.queue.map((item, i) => (
-          <QueueItem key={`${item.id.videoId}-${i}`} item={item} />
-        ))}
+        <div className={styles.flexScrollableContent}>
+          {this.props.queue.map((item, i) => (
+            <QueueItem key={`${item.id.videoId}-${i}`} item={item} />
+          ))}
+        </div>
+        <footer>footer!!!!!</footer>
         <Player />
       </div>
     );
