@@ -6,7 +6,7 @@ import PauseCircle from 'react-icons/lib/fa/pause-circle-o';
 import VolumeDown from 'react-icons/lib/fa/volume-down';
 import VolumeUp from 'react-icons/lib/fa/volume-up';
 import VolumeOff from 'react-icons/lib/fa/volume-off';
-import { togglePlayPause } from '../actions';
+import { togglePlayPause, setVolume, toggleMute, unmutePlayer } from '../actions';
 import styles from './Controller.css';
 
 
@@ -15,10 +15,21 @@ class Controller extends Component {
     super();
 
     this.handleClickPlayPause = this.handleClickPlayPause.bind(this);
+    this.handleSliderChange = this.handleSliderChange.bind(this);
+    this.handleClickVolumeIcon = this.handleClickVolumeIcon.bind(this);
   }
 
   handleClickPlayPause() {
     this.props.dispatch(togglePlayPause);
+  }
+
+  handleSliderChange(event) {
+    this.props.dispatch(setVolume, +event.target.value);
+    this.props.dispatch(unmutePlayer);
+  }
+
+  handleClickVolumeIcon() {
+    this.props.dispatch(toggleMute);
   }
 
   renderPlayPause() {
@@ -38,13 +49,30 @@ class Controller extends Component {
     );
   }
 
+  renderVolumeIcon() {
+    let Icon;
+    if (this.props.playerIsMute) {
+      Icon = VolumeOff;
+    } else {
+      Icon = this.props.playerVolume <= 50 ?
+        VolumeDown : VolumeUp;
+    }
+
+    return <section onClick={this.handleClickVolumeIcon}><Icon /></section>;
+  }
+
   render() {
     return (
       <div className={`${styles.flex} ${styles.bar}`}>
         {this.renderPlayPause()}
-        <section><VolumeDown /></section>
-        <section><VolumeUp /></section>
-        <section><VolumeOff /></section>
+        {this.renderVolumeIcon()}
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={this.props.playerIsMute ? 0 : this.props.playerVolume}
+          onChange={this.handleSliderChange}
+        />
       </div>
     );
   }
@@ -53,6 +81,8 @@ class Controller extends Component {
 Controller.propTypes = {
   dispatch: PropTypes.func.isRequired,
   playerState: PropTypes.string.isRequired,
+  playerVolume: PropTypes.number.isRequired,
+  playerIsMute: PropTypes.bool.isRequired,
   queue: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.shape({
       videoId: PropTypes.string.isRequired,
@@ -70,5 +100,7 @@ Controller.propTypes = {
 
 export default branch({
   playerState: ['player', 'state'],
+  playerVolume: ['player', 'volume'],
+  playerIsMute: ['player', 'isMute'],
   queue: ['queue'],
 }, Controller);

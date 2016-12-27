@@ -12,6 +12,8 @@ const tree = rendererTree({
   player: {
     nowPlaying: null,
     state: 'paused',
+    volume: 100,
+    isMute: false,
   },
 });
 

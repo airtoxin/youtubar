@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { PropTypes, Component } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import Youtube from 'react-youtube';
@@ -19,11 +20,17 @@ class Player extends Component {
     if (!nextProps.nowPlaying) return;
     if (!this.api) return;
 
-    this.switchPlayer(nextProps.playerState);
+    this.preparePlayer(nextProps);
   }
 
-  switchPlayer(playerState) {
-    switch (playerState) {
+  preparePlayer(props) {
+    this.api.setVolume(props.volume);
+    if (props.isMute) {
+      this.api.mute();
+    } else {
+      this.api.unMute();
+    }
+    switch (props.playerState) {
       case 'playing':
         return this.api.playVideo();
       case 'paused':
@@ -35,12 +42,12 @@ class Player extends Component {
 
   handleOnReady(event) {
     this.api = event.target;
-    this.switchPlayer(this.props.playerState);
+    this.preparePlayer(this.props);
   }
 
   handleOnStateChange(event) {
     this.api = event.target;
-    this.switchPlayer(this.props.playerState);
+    this.preparePlayer(this.props);
   }
 
   handleOnEnd() {
@@ -79,10 +86,14 @@ Player.propTypes = {
       }),
     }),
   }),
-  playerState: PropTypes.oneOf(['playing', 'paused']),
+  playerState: PropTypes.oneOf(['playing', 'paused']).isRequired,
+  volume: PropTypes.number.isRequired,
+  isMute: PropTypes.bool.isRequired,
 };
 
 export default branch({
   nowPlaying: ['player', 'nowPlaying'],
   playerState: ['player', 'state'],
+  volume: ['player', 'volume'],
+  isMute: ['player', 'isMute'],
 }, Player);

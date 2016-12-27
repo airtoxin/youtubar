@@ -43,3 +43,20 @@ export function togglePlayPause(tree) {
       return null;
   }
 }
+
+export function setVolume(tree, volume) {
+  tree.set(['player', 'volume'], volume);
+}
+
+export function mutePlayer(tree) {
+  tree.set(['player', 'isMute'], true);
+}
+
+export function unmutePlayer(tree) {
+  tree.set(['player', 'isMute'], false);
+}
+
+export function toggleMute(tree) {
+  const cursor = tree.select(['player', 'isMute']);
+  cursor.set(!cursor.get());
+}
