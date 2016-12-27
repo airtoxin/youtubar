@@ -17,8 +17,8 @@ function splitPaths(tree, updatee, next) {
 function playWhenVideoAddedFirstTime(tree, updatee, next) {
   if (matchPath(updatee, ['queue', '0'])) {
     const video = getTarget(updatee);
-    tree.set(['playing'], video);
-    tree.set(['player'], 'playing');
+    tree.set(['player', 'nowPlaying'], video);
+    tree.set(['player', 'state'], 'playing');
   }
   next(tree, updatee);
 }
@@ -27,11 +27,11 @@ function whenUpdateQueue(tree, updatee, next) {
   if (matchPath(updatee, ['queue'])) {
     const video = tree.get(['queue', '0']);
     if (video) {
-      tree.set(['playing'], video);
-      tree.set(['player'], 'playing');
+      tree.set(['player', 'nowPlaying'], video);
+      tree.set(['player', 'state'], 'playing');
     } else {
-      tree.set(['playing'], null);
-      tree.set(['player'], 'paused');
+      tree.set(['player', 'nowPlaying'], null);
+      tree.set(['player', 'state'], 'paused');
     }
   }
   next(tree, updatee);

@@ -16,14 +16,14 @@ class Player extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (!nextProps.playing) return;
+    if (!nextProps.nowPlaying) return;
     if (!this.api) return;
 
-    this.switchPlayer(nextProps.player);
+    this.switchPlayer(nextProps.playerState);
   }
 
-  switchPlayer(player) {
-    switch (player) {
+  switchPlayer(playerState) {
+    switch (playerState) {
       case 'playing':
         return this.api.playVideo();
       case 'paused':
@@ -35,12 +35,12 @@ class Player extends Component {
 
   handleOnReady(event) {
     this.api = event.target;
-    this.switchPlayer(this.props.player);
+    this.switchPlayer(this.props.playerState);
   }
 
   handleOnStateChange(event) {
     this.api = event.target;
-    this.switchPlayer(this.props.player);
+    this.switchPlayer(this.props.playerState);
   }
 
   handleOnEnd() {
@@ -48,12 +48,12 @@ class Player extends Component {
   }
 
   render() {
-    if (!this.props.playing) return null;
+    if (!this.props.nowPlaying) return null;
 
     return (
       <div className={styles.hidden}>
         <Youtube
-          videoId={this.props.playing.id.videoId}
+          videoId={this.props.nowPlaying.id.videoId}
           id="playing-video"
           onReady={this.handleOnReady}
           onStateChange={this.handleOnStateChange}
@@ -66,7 +66,7 @@ class Player extends Component {
 
 Player.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  playing: PropTypes.shape({
+  nowPlaying: PropTypes.shape({
     id: PropTypes.shape({
       videoId: PropTypes.string.isRequired,
     }),
@@ -79,10 +79,10 @@ Player.propTypes = {
       }),
     }),
   }),
-  player: PropTypes.oneOf(['playing', 'paused']),
+  playerState: PropTypes.oneOf(['playing', 'paused']),
 };
 
 export default branch({
-  playing: ['playing'],
-  player: ['player'],
+  nowPlaying: ['player', 'nowPlaying'],
+  playerState: ['player', 'state'],
 }, Player);

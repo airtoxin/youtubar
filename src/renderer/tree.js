@@ -9,8 +9,10 @@ const tree = rendererTree({
     items: [],
   },
   queue: [],
-  playing: null,
-  player: 'paused',
+  player: {
+    nowPlaying: null,
+    state: 'paused',
+  },
 });
 
 export default tree;

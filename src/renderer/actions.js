@@ -33,7 +33,7 @@ export function removeQueue(tree, index) {
 }
 
 export function togglePlayPause(tree) {
-  const cursor = tree.select(['player']);
+  const cursor = tree.select(['player', 'sate']);
   switch (cursor.get()) {
     case 'paused':
       return cursor.set('playing');

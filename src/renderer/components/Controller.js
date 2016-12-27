@@ -30,8 +30,8 @@ class Controller extends Component {
 
     return (
       <section onClick={this.handleClickPlayPause}>
-        {this.props.player === 'paused' ?
-          <PlayCircle /> : this.props.player === 'playing' ?
+        {this.props.playerState === 'paused' ?
+          <PlayCircle /> : this.props.playerState === 'playing' ?
             <PauseCircle /> :
           null}
       </section>
@@ -52,7 +52,7 @@ class Controller extends Component {
 
 Controller.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  player: PropTypes.string.isRequired,
+  playerState: PropTypes.string.isRequired,
   queue: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.shape({
       videoId: PropTypes.string.isRequired,
@@ -69,6 +69,6 @@ Controller.propTypes = {
 };
 
 export default branch({
-  player: ['player'],
+  playerState: ['player', 'state'],
   queue: ['queue'],
 }, Controller);
