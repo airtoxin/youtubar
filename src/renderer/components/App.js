@@ -93,22 +93,24 @@ class App extends Component {
   }
 }
 
+const PropTypesVideoItem = PropTypes.arrayOf(PropTypes.shape({
+  id: PropTypes.shape({
+    videoId: PropTypes.string.isRequired,
+  }),
+  snippet: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    thumbnails: PropTypes.shape({
+      default: PropTypes.shape({
+        url: PropTypes.string.isRequired,
+      }),
+    }),
+  }),
+}));
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   searchQuery: PropTypes.string.isRequired,
-  searchItems: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.shape({
-      videoId: PropTypes.string.isRequired,
-    }),
-    snippet: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      thumbnails: PropTypes.shape({
-        default: PropTypes.shape({
-          url: PropTypes.string.isRequired,
-        }),
-      }),
-    }),
-  })).isRequired,
+  searchItems: PropTypesVideoItem.isRequired,
+  queue: PropTypesVideoItem.isRequired,
 };
 
 export default branch({

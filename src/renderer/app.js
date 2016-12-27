@@ -11,7 +11,10 @@ import apiClient from './services/api-client';
 // set middlewares
 const mdls = lodash.reverse(middlewares.slice());
 tree.on('update', (updatee) => {
-  mdls.reduce((next, middleware) => (tr, updt) => middleware(tr, updt, next), () => {})(tree, updatee);
+  mdls.reduce(
+    (next, middleware) => (tr, updt) => middleware(tr, updt, next),
+    () => {},
+  )(tree, updatee);
 });
 
 // restore values from local storage

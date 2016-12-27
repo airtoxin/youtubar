@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import styles from './QueueItem.css';
 
-const QueueItem = ({ item, dispatch }) => (
+const QueueItem = ({ item }) => (
   <div
     className={`${styles.container} ${styles.flex} ${styles.noselect}`}
   >
@@ -19,7 +19,6 @@ const QueueItem = ({ item, dispatch }) => (
 );
 
 QueueItem.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   item: PropTypes.shape({
     id: PropTypes.shape({
       videoId: PropTypes.string.isRequired,
