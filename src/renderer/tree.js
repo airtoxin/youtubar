@@ -10,6 +10,7 @@ const tree = rendererTree({
   },
   queue: [],
   playing: null,
+  player: 'paused',
 });
 
 export default tree;

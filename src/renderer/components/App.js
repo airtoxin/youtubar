@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import Sidebar from 'react-sidebar';
+import MenuIcon from 'react-icons/lib/fa/bars';
+import SearchIcon from 'react-icons/lib/fa/search';
 import { branch } from 'baobab-react/higher-order';
 import styles from './App.css';
 import { search } from '../actions';
 import SearchItem from './SearchItem';
 import QueueItem from './QueueItem';
 import Player from './Player';
+import Controller from './Controller';
 
 class App extends Component {
   constructor(props) {
@@ -48,14 +51,16 @@ class App extends Component {
       <div className={`${styles.main} ${styles.flex}`}>
         <header className={`${styles.header} ${styles.flexFixedHeader}`}>
           <marquee>Now playing ♪ - </marquee>
-          <button className={styles.menuButton} onClick={this.handleClick}>三</button>
+          <button className={styles.menuButton} onClick={this.handleClick}><MenuIcon/></button>
         </header>
         <div className={styles.flexScrollableContent}>
           {this.props.queue.map((item, i) => (
             <QueueItem key={`${item.id.videoId}-${i}`} item={item} />
           ))}
         </div>
-        <footer>footer!!!!!</footer>
+        <footer className={styles.footer}>
+          <Controller />
+        </footer>
         <Player />
       </div>
     );
@@ -68,7 +73,7 @@ class App extends Component {
     return (
       <div className={`${styles.sidebar} ${styles.flex}`}>
         <header className={`${styles.header} ${styles.flexFixedHeader}`}>
-          🔍
+          <SearchIcon/>
           <input
             className={styles.input}
             placeholder="Search"

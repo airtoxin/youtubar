@@ -23,6 +23,11 @@
   height: 100%;
 }
 
+.footer {
+  font-size: 2em;
+  background-color: darkgray;
+}
+
 .input {
   flex-grow: 1;
   border: none;
