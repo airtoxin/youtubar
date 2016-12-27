@@ -24,6 +24,7 @@ function playVideoInQueue(tree, updatee, next) {
       updatee.data.currentData.queue.length !== 0) {
         const video = getTarget(updatee);
         tree.set(['playing'], video);
+        tree.set(['player'], 'playing');
       }
   }
   next(tree, updatee);

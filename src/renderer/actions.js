@@ -24,3 +24,13 @@ export function search(tree, q) {
 export function addQueue(tree, item) {
   tree.push(['queue'], item);
 }
+
+export function togglePlayPause(tree) {
+  const cursor = tree.select(['player']);
+  switch (cursor.get()) {
+    case 'paused':
+      return cursor.set('playing');
+    case 'playing':
+      return cursor.set('paused');
+  }
+}
