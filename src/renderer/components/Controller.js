@@ -21,21 +21,27 @@ class Controller extends Component {
   }
 
   renderPlayPause() {
-    if (this.props.queue.length === 0) return <PlayCircle className={styles.disabled}/>;
+    if (this.props.queue.length === 0) return (
+      <section><PlayCircle className={styles.disabled}/></section>
+    );
 
-    return this.props.player === 'paused' ?
-      <PlayCircle/> : this.props.player === 'playing' ?
-      <PauseCircle/> :
-      null
+    return (
+      <section onClick={this.handleClickPlayPause}>
+        {this.props.player === 'paused' ?
+          <PlayCircle/> : this.props.player === 'playing' ?
+          <PauseCircle/> :
+          null}
+      </section>
+    );
   }
 
   render() {
     return (
-      <div>
-        <section onClick={this.handleClickPlayPause}>{this.renderPlayPause()}</section>
-        <VolumeDown />
-        <VolumeUp />
-        <VolumeOff />
+      <div className={`${styles.flex} ${styles.bar}`}>
+        {this.renderPlayPause()}
+        <section><VolumeDown /></section>
+        <section><VolumeUp /></section>
+        <section><VolumeOff /></section>
       </div>
     );
   }

@@ -9,6 +9,7 @@ import SearchItem from './SearchItem';
 import QueueItem from './QueueItem';
 import Player from './Player';
 import Controller from './Controller';
+import Corner from './Corner';
 
 class App extends Component {
   constructor(props) {
@@ -62,6 +63,7 @@ class App extends Component {
           <Controller />
         </footer>
         <Player />
+        <Corner />
       </div>
     );
   }

@@ -1,0 +1,10 @@
+.flow {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.curl {
+  width: 3em;
+  height: 3em;
+}
