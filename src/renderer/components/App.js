@@ -70,7 +70,8 @@ class App extends Component {
 
   renderSidebarContent() {
     // avoid to warping sidebar
-    if (this.inputElement) setTimeout(() => this.inputElement.focus(), 100);
+    // disable focus because buggy
+    // if (this.inputElement) setTimeout(() => this.inputElement.focus(), 100);
 
     return (
       <div className={`${styles.sidebar} ${styles.flex}`}>
