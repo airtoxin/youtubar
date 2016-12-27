@@ -5,6 +5,7 @@
 .container {
   padding: .5em;
   transition: all .1s;
+  position: relative;
 }
 
 .noselect {
@@ -24,4 +25,21 @@
 .title {
   color: #333;
   font-weight: bold;
+}
+
+.trash {
+  outline: none;
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  font-size: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 0 .2em .2em;
+  position: absolute;
+  z-index: 10;
+}
+
+.trash:active {
+  background-color: lightgray;
 }

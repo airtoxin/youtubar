@@ -35,6 +35,7 @@
 }
 
 .menuButton {
+  padding: 0 .2em .2em;
   border: solid 1px lightgray;
   border-radius: 5px;
   background-color: white;

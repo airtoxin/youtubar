@@ -25,6 +25,13 @@ export function addQueue(tree, item) {
   tree.push(['queue'], item);
 }
 
+export function removeQueue(tree, index) {
+  const cursor = tree.select(['queue']);
+  const queue = cursor.get();
+  const newQueue = [].concat(queue.slice(0, index), queue.slice(index + 1, queue.length - 1));
+  cursor.set(newQueue)
+}
+
 export function togglePlayPause(tree) {
   const cursor = tree.select(['player']);
   switch (cursor.get()) {

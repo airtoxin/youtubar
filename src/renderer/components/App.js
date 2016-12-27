@@ -56,7 +56,7 @@ class App extends Component {
         </header>
         <div className={styles.flexScrollableContent}>
           {this.props.queue.map((item, i) => (
-            <QueueItem key={`${item.id.videoId}-${i}`} item={item} />
+            <QueueItem key={`${item.id.videoId}-${i}`} item={item} index={i} />
           ))}
         </div>
         <footer className={styles.footer}>
