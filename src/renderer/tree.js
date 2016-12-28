@@ -9,6 +9,7 @@ const tree = rendererTree({
     items: [],
   },
   queue: [],
+  passedQueue: [],
   player: {
     nowPlaying: null,
     state: 'paused',

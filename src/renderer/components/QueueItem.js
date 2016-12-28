@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import TrashIcon from 'react-icons/lib/fa/trash-o';
 import styles from './QueueItem.css';
-import { removeQueue } from '../actions';
+import { deleteFromQueue } from '../actions';
 
 class QueueItem extends Component {
   constructor() {
@@ -16,7 +16,7 @@ class QueueItem extends Component {
     return (
       <button
         className={styles.trash}
-        onClick={() => this.props.dispatch(removeQueue, this.props.index)}
+        onClick={() => this.props.dispatch(deleteFromQueue, this.props.index)}
       >
         <TrashIcon />
       </button>

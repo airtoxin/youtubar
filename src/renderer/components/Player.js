@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import Youtube from 'react-youtube';
 import styles from './Player.css';
-import { removeQueue } from '../actions';
+import { moveToPassedQueue } from '../actions';
 
 class Player extends Component {
   constructor() {
@@ -21,9 +21,9 @@ class Player extends Component {
   }
 
   preparePlayer() {
-    if (!this.props.nowPlaying) return;
+    if (!this.props.nowPlaying) return null;
     // FIXME: api.a is private value
-    if (!this.api || !this.api.a) return;
+    if (!this.api || !this.api.a) return null;
 
     this.api.setVolume(this.props.volume);
     if (this.props.isMute) {
@@ -52,7 +52,7 @@ class Player extends Component {
   }
 
   handleOnEnd() {
-    this.props.dispatch(removeQueue, 0);
+    this.props.dispatch(moveToPassedQueue, 0);
   }
 
   render() {

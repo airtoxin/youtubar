@@ -25,11 +25,38 @@ export function addQueue(tree, item) {
   tree.push(['queue'], item);
 }
 
-export function removeQueue(tree, index) {
+export function moveToPassedQueue(tree, index) {
+  const cursor = tree.select(['queue']);
+  const queue = cursor.get();
+  const newQueue = [].concat(queue.slice(0, index), queue.slice(index + 1, queue.length));
+  const video = cursor.get(index);
+
+  cursor.set(newQueue);
+  tree.push(['passedQueue'], video);
+}
+
+export function deleteFromQueue(tree, index) {
   const cursor = tree.select(['queue']);
   const queue = cursor.get();
   const newQueue = [].concat(queue.slice(0, index), queue.slice(index + 1, queue.length));
   cursor.set(newQueue);
+}
+
+export function rewindQueue(tree) {
+  const queueCursor = tree.select(['queue']);
+  const passedQueueCursor = tree.select(['passedQueue']);
+
+  const passedQueue = passedQueueCursor.get();
+  const passedVideo = passedQueueCursor.get(passedQueue.length - 1);
+  const newPassedQueue = passedQueue.slice(0, passedQueue.length - 1);
+
+  if (!passedVideo) return;
+
+  const queue = queueCursor.get();
+  const newQueue = [passedVideo].concat(queue);
+
+  queueCursor.set(newQueue);
+  passedQueueCursor.set(newPassedQueue);
 }
 
 export function togglePlayPause(tree) {

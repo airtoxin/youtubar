@@ -6,8 +6,16 @@ import PauseCircle from 'react-icons/lib/fa/pause-circle-o';
 import VolumeDown from 'react-icons/lib/fa/volume-down';
 import VolumeUp from 'react-icons/lib/fa/volume-up';
 import VolumeOff from 'react-icons/lib/fa/volume-off';
+import Back from 'react-icons/lib/fa/fast-backward';
 import Skip from 'react-icons/lib/fa/fast-forward';
-import { togglePlayPause, setVolume, toggleMute, unmutePlayer, removeQueue } from '../actions';
+import {
+  rewindQueue,
+  togglePlayPause,
+  setVolume,
+  toggleMute,
+  unmutePlayer,
+  moveToPassedQueue,
+} from '../actions';
 import styles from './Controller.css';
 
 
@@ -15,10 +23,15 @@ class Controller extends Component {
   constructor() {
     super();
 
+    this.handleClickBack = this.handleClickBack.bind(this);
     this.handleClickPlayPause = this.handleClickPlayPause.bind(this);
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.handleClickVolumeIcon = this.handleClickVolumeIcon.bind(this);
     this.handleClickSkip = this.handleClickSkip.bind(this);
+  }
+
+  handleClickBack() {
+    this.props.dispatch(rewindQueue);
   }
 
   handleClickPlayPause() {
@@ -35,7 +48,7 @@ class Controller extends Component {
   }
 
   handleClickSkip() {
-    this.props.dispatch(removeQueue, 0);
+    this.props.dispatch(moveToPassedQueue, 0);
   }
 
   renderPlayPause() {
@@ -70,7 +83,10 @@ class Controller extends Component {
   render() {
     return (
       <div className={`${styles.flex} ${styles.bar}`}>
+        <section onClick={this.handleClickBack}><Back /></section>
         {this.renderPlayPause()}
+        <section onClick={this.handleClickSkip}><Skip /></section>
+        &nbsp;
         {this.renderVolumeIcon()}
         <input
           type="range"
@@ -79,7 +95,6 @@ class Controller extends Component {
           value={this.props.playerIsMute ? 0 : this.props.playerVolume}
           onChange={this.handleSliderChange}
         />
-        <section><Skip onClick={this.handleClickSkip}/></section>
       </div>
     );
   }
