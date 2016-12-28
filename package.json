@@ -14,7 +14,9 @@
     "test:lint": "eslint {src,test} --fix",
     "test:unit": "mocha --compilers js:babel-register --recursive test --timeout 10000",
     "test": "run-p test:*",
-    "package": "electron-packager . youtubar --out build --overwrite --ignore=src --platform=mas --arch=x64 --icon youtubar.icns"
+    "package": "electron-packager . youtubar --out build --overwrite --ignore=src --platform=mas --arch=x64 --icon youtubar.icns",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -59,7 +61,8 @@
     "eslint-plugin-react": "6.8.0",
     "mocha": "3.2.0",
     "npm-run-all": "3.1.2",
-    "rimraf": "2.5.4"
+    "rimraf": "2.5.4",
+    "@kadira/storybook": "^2.21.0"
   },
   "dependencies": {
     "babel-runtime": "6.20.0",
