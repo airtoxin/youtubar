@@ -47,8 +47,8 @@ class QueueItem extends Component {
 }
 
 QueueItem.propTypes = {
-  index: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
   item: videoType.isRequired,
 };
 
