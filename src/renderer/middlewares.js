@@ -2,6 +2,8 @@ import lodash from 'lodash';
 import * as localStorageService from './services/localstorage';
 import apiClientService from './services/api-client';
 
+const MAX_PASSED_QUEUE_SIZE = 50;
+
 const matchPath = (updatee, path) => lodash.isEqual(updatee.data.paths[0], path);
 
 const getTarget = updatee => updatee.target.get(updatee.data.paths[0]);
@@ -17,8 +19,10 @@ function splitPaths(tree, updatee, next) {
 function playWhenVideoAddedFirstTime(tree, updatee, next) {
   if (matchPath(updatee, ['queue', '0'])) {
     const video = getTarget(updatee);
-    tree.set(['player', 'nowPlaying'], video);
-    tree.set(['player', 'state'], 'playing');
+    if (video) {
+      tree.set(['player', 'nowPlaying'], video);
+      tree.set(['player', 'state'], 'playing');
+    }
   }
   next(tree, updatee);
 }
@@ -32,6 +36,19 @@ function whenUpdateQueue(tree, updatee, next) {
     } else {
       tree.set(['player', 'nowPlaying'], null);
       tree.set(['player', 'state'], 'paused');
+    }
+  }
+  next(tree, updatee);
+}
+
+function forgetPassedQueue(tree, updatee, next) {
+  if (lodash.isEqual(updatee.data.paths[0][0], 'passedQueue')) {
+    const passedQueue = updatee.target.get(['passedQueue']);
+    if (passedQueue.length > MAX_PASSED_QUEUE_SIZE) {
+      tree.set(['passedQueue'], passedQueue.slice(
+        passedQueue.length - MAX_PASSED_QUEUE_SIZE,
+        passedQueue.length
+      ));
     }
   }
   next(tree, updatee);
@@ -66,6 +83,7 @@ export default [
   splitPaths,
   playWhenVideoAddedFirstTime,
   whenUpdateQueue,
+  forgetPassedQueue,
   serializeToken,
   updateClientToken,
   log,

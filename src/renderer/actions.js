@@ -27,12 +27,14 @@ export function addQueue(tree, item) {
 
 export function moveToPassedQueue(tree, index) {
   const cursor = tree.select(['queue']);
-  const queue = cursor.get();
-  const newQueue = [].concat(queue.slice(0, index), queue.slice(index + 1, queue.length));
   const video = cursor.get(index);
+  if (video) {
+    const queue = cursor.get();
+    const newQueue = [].concat(queue.slice(0, index), queue.slice(index + 1, queue.length));
 
-  cursor.set(newQueue);
-  tree.push(['passedQueue'], video);
+    cursor.set(newQueue);
+    tree.push(['passedQueue'], video);
+  }
 }
 
 export function deleteFromQueue(tree, index) {
