@@ -49,10 +49,11 @@ class App extends Component {
   }
 
   renderMainContent() {
+    const title = this.props.nowPlaying ? this.props.nowPlaying.snippet.title : '';
     return (
       <div className={`${styles.main} ${styles.flex}`}>
         <header className={`${styles.header} ${styles.flexFixedHeader}`}>
-          <marquee>Now playing ♪ - </marquee>
+          <marquee>{title}</marquee>
           <button className={styles.menuButton} onClick={this.handleClick}><MenuIcon /></button>
         </header>
         <div className={styles.flexScrollableContent}>
@@ -124,12 +125,26 @@ const PropTypesVideoItem = PropTypes.arrayOf(PropTypes.shape({
 }));
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  nowPlaying: PropTypes.shape({
+    id: PropTypes.shape({
+      videoId: PropTypes.string.isRequired,
+    }),
+    snippet: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      thumbnails: PropTypes.shape({
+        default: PropTypes.shape({
+          url: PropTypes.string.isRequired,
+        }),
+      }),
+    }),
+  }),
   searchQuery: PropTypes.string.isRequired,
   searchItems: PropTypesVideoItem.isRequired,
   queue: PropTypesVideoItem.isRequired,
 };
 
 export default branch({
+  nowPlaying: ['player', 'nowPlaying'],
   searchQuery: ['search', 'query'],
   searchItems: ['search', 'items'],
   queue: ['queue'],
