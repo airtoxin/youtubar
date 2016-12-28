@@ -16,21 +16,22 @@ class Player extends Component {
     this.handleOnEnd = this.handleOnEnd.bind(this);
   }
 
-  componentWillUpdate(nextProps) {
-    if (!nextProps.nowPlaying) return;
-    if (!this.api) return;
-
-    this.preparePlayer(nextProps);
+  componentDidUpdate() {
+    this.preparePlayer();
   }
 
-  preparePlayer(props) {
-    this.api.setVolume(props.volume);
-    if (props.isMute) {
+  preparePlayer() {
+    if (!this.props.nowPlaying) return;
+    // FIXME: api.a is private value
+    if (!this.api || !this.api.a) return;
+
+    this.api.setVolume(this.props.volume);
+    if (this.props.isMute) {
       this.api.mute();
     } else {
       this.api.unMute();
     }
-    switch (props.playerState) {
+    switch (this.props.playerState) {
       case 'playing':
         return this.api.playVideo();
       case 'paused':
@@ -42,12 +43,12 @@ class Player extends Component {
 
   handleOnReady(event) {
     this.api = event.target;
-    this.preparePlayer(this.props);
+    this.preparePlayer();
   }
 
   handleOnStateChange(event) {
     this.api = event.target;
-    this.preparePlayer(this.props);
+    this.preparePlayer();
   }
 
   handleOnEnd() {
