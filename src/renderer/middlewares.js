@@ -55,9 +55,41 @@ function forgetPassedQueue(tree, updatee, next) {
 }
 
 function serializeToken(tree, updatee, next) {
+  if (lodash.isEqual(updatee.data.paths[0][0], 'search')) {
+    const value = updatee.target.get('search');
+    localStorageService.set('search', value);
+  }
+  next(tree, updatee);
+}
+
+function serializeSearch(tree, updatee, next) {
   if (matchPath(updatee, ['auth', 'token'])) {
-    const token = getTarget(updatee);
-    localStorageService.set(updatee.data.paths[0].join('/'), token);
+    const value = getTarget(updatee);
+    localStorageService.set(updatee.data.paths[0].join('/'), value);
+  }
+  next(tree, updatee);
+}
+
+function serializeQueue(tree, updatee, next) {
+  if (matchPath(updatee, ['queue'])) {
+    const value = getTarget(updatee);
+    localStorageService.set(updatee.data.paths[0].join('/'), value);
+  }
+  next(tree, updatee);
+}
+
+function serializePassedQueue(tree, updatee, next) {
+  if (lodash.isEqual(updatee.data.paths[0][0], 'passedQueue')) {
+    const value = updatee.target.get('passedQueue');
+    localStorageService.set('passedQueue', value);
+  }
+  next(tree, updatee);
+}
+
+function serializePlayer(tree, updatee, next) {
+  if (matchPath(updatee, ['player', 'volume']) || matchPath(updatee, ['player', 'isMute'])) {
+    const value = getTarget(updatee);
+    localStorageService.set(updatee.data.paths[0].join('/'), value);
   }
   next(tree, updatee);
 }
@@ -85,6 +117,9 @@ export default [
   whenUpdateQueue,
   forgetPassedQueue,
   serializeToken,
+  serializeQueue,
+  serializePassedQueue,
+  serializePlayer,
   updateClientToken,
   log,
 ];
