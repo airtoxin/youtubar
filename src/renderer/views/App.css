@@ -4,11 +4,6 @@
   border-bottom: 1px solid lightgray;
 }
 
-.flex {
-  display: flex;
-  flex-direction: column;
-}
-
 .flexFixedHeader {
   flex: 0 0 auto;
 }

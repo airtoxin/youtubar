@@ -1,0 +1,12 @@
+.container {
+  padding: .5em;
+  transition: all .1s;
+}
+
+.hoverAnimation {
+  border-left: solid 0 red;
+}
+
+.hoverAnimation:hover {
+  border-left: solid 1em red;
+}

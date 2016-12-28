@@ -1,0 +1,9 @@
+.thumbnail {
+  width: 8em;
+  height: 4.5em;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: .5em;
+}

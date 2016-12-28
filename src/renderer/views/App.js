@@ -4,13 +4,16 @@ import Sidebar from 'react-sidebar';
 import MenuIcon from 'react-icons/lib/fa/bars';
 import SearchIcon from 'react-icons/lib/fa/search';
 import { branch } from 'baobab-react/higher-order';
-import styles from './App.css';
 import { search } from '../actions';
-import SearchItem from './SearchItem';
-import QueueItem from './QueueItem';
-import Player from './Player';
-import Controller from './Controller';
-import Corner from './Corner';
+import SearchItem from './organisms/SearchItem';
+import QueueItem from './organisms/QueueItem';
+import Player from './pages/Player';
+import Controller from './pages/Controller';
+import Title from './atoms/Title';
+import Corner from './molecules/Corner';
+import { playerType, searchType, queueType } from '../proptypes';
+import styles from './App.css';
+import common from './common.css';
 
 class App extends Component {
   constructor(props) {
@@ -51,9 +54,9 @@ class App extends Component {
   renderMainContent() {
     const title = this.props.nowPlaying ? this.props.nowPlaying.snippet.title : '';
     return (
-      <div className={`${styles.main} ${styles.flex}`}>
+      <div className={`${styles.main} ${common.flexCol}`}>
         <header className={`${styles.header} ${styles.flexFixedHeader}`}>
-          <marquee>{title}</marquee>
+          <marquee><Title title={title} /></marquee>
           <button className={styles.menuButton} onClick={this.handleClick}><MenuIcon /></button>
         </header>
         <div className={styles.flexScrollableContent}>
@@ -76,7 +79,7 @@ class App extends Component {
     // if (this.inputElement) setTimeout(() => this.inputElement.focus(), 100);
 
     return (
-      <div className={`${styles.sidebar} ${styles.flex}`}>
+      <div className={`${styles.sidebar} ${common.flexCol}`}>
         <header className={`${styles.header} ${styles.flexFixedHeader}`}>
           <SearchIcon />
           <input
@@ -110,37 +113,12 @@ class App extends Component {
   }
 }
 
-const PropTypesVideoItem = PropTypes.arrayOf(PropTypes.shape({
-  id: PropTypes.shape({
-    videoId: PropTypes.string.isRequired,
-  }),
-  snippet: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    thumbnails: PropTypes.shape({
-      default: PropTypes.shape({
-        url: PropTypes.string.isRequired,
-      }),
-    }),
-  }),
-}));
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  nowPlaying: PropTypes.shape({
-    id: PropTypes.shape({
-      videoId: PropTypes.string.isRequired,
-    }),
-    snippet: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      thumbnails: PropTypes.shape({
-        default: PropTypes.shape({
-          url: PropTypes.string.isRequired,
-        }),
-      }),
-    }),
-  }),
-  searchQuery: PropTypes.string.isRequired,
-  searchItems: PropTypesVideoItem.isRequired,
-  queue: PropTypesVideoItem.isRequired,
+  nowPlaying: playerType.nowPlayingType,
+  searchQuery: searchType.queryType,
+  searchItems: searchType.itemsType,
+  queue: queueType,
 };
 
 export default branch({

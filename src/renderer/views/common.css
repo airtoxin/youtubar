@@ -1,0 +1,21 @@
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.disabled {
+  color: gray;
+}
+
+.hidden {
+  display: none;
+}
+
+.noselect {
+  -webkit-user-select: none;
+}

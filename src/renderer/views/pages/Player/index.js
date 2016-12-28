@@ -2,8 +2,9 @@
 import React, { PropTypes, Component } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import Youtube from 'react-youtube';
-import styles from './Player.css';
-import { moveToPassedQueue } from '../actions';
+import { moveToPassedQueue } from '../../../actions';
+import { playerType } from '../../../proptypes';
+import common from '../../common.css';
 
 class Player extends Component {
   constructor() {
@@ -59,7 +60,7 @@ class Player extends Component {
     if (!this.props.nowPlaying) return null;
 
     return (
-      <div className={styles.hidden}>
+      <div className={common.hidden}>
         <Youtube
           videoId={this.props.nowPlaying.id.videoId}
           id="playing-video"
@@ -74,22 +75,10 @@ class Player extends Component {
 
 Player.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  nowPlaying: PropTypes.shape({
-    id: PropTypes.shape({
-      videoId: PropTypes.string.isRequired,
-    }),
-    snippet: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      thumbnails: PropTypes.shape({
-        default: PropTypes.shape({
-          url: PropTypes.string.isRequired,
-        }),
-      }),
-    }),
-  }),
-  playerState: PropTypes.oneOf(['playing', 'paused']).isRequired,
-  volume: PropTypes.number.isRequired,
-  isMute: PropTypes.bool.isRequired,
+  nowPlaying: playerType.nowPlayingType,
+  playerState: playerType.stateType,
+  volume: playerType.volumeType,
+  isMute: playerType.isMuteType,
 };
 
 export default branch({

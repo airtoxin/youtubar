@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Corner.css';
+import styles from './index.css';
 
 export default () => (
   <img

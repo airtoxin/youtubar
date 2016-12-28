@@ -2,8 +2,12 @@
 import React, { PropTypes, Component } from 'react';
 import { branch } from 'baobab-react/higher-order';
 import TrashIcon from 'react-icons/lib/fa/trash-o';
-import styles from './QueueItem.css';
-import { deleteFromQueue } from '../actions';
+import Thumbnail from '../../atoms/Thumbnail';
+import Title from '../../atoms/Title';
+import { deleteFromQueue } from '../../../actions';
+import { videoType } from '../../../proptypes';
+import styles from './index.css';
+import common from '../../common.css';
 
 class QueueItem extends Component {
   constructor() {
@@ -28,17 +32,13 @@ class QueueItem extends Component {
 
     return (
       <div
-        className={`${styles.container} ${styles.flex} ${styles.noselect}`}
+        className={`${styles.container} ${common.flexRow} ${common.noselect}`}
         onMouseEnter={() => this.setState({ hover: true })}
         onMouseLeave={() => this.setState({ hover: false })}
       >
-        <img
-          className={styles.thumbnail}
-          src={item.snippet.thumbnails.default.url}
-          alt="thumbnail"
-        />
+        <Thumbnail src={item.snippet.thumbnails.default.url} />
         <div>
-          <span className={styles.title}>{item.snippet.title}</span>
+          <Title title={item.snippet.title} />
         </div>
         {this.state.hover ? this.renderTrash() : null}
       </div>
@@ -49,19 +49,7 @@ class QueueItem extends Component {
 QueueItem.propTypes = {
   index: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
-  item: PropTypes.shape({
-    id: PropTypes.shape({
-      videoId: PropTypes.string.isRequired,
-    }),
-    snippet: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      thumbnails: PropTypes.shape({
-        default: PropTypes.shape({
-          url: PropTypes.string.isRequired,
-        }),
-      }),
-    }),
-  }).isRequired,
+  item: videoType.isRequired,
 };
 
 export default branch({
