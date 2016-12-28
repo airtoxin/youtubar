@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Thumbnail from './Thumbnail';
 import Title from './Title';
 
