@@ -15,7 +15,7 @@
     "test:unit": "mocha --compilers js:babel-register --recursive test --timeout 10000",
     "test": "run-p test:*",
     "package": "electron-packager . youtubar --out build --overwrite --ignore=src --platform=mas --arch=x64 --icon youtubar.icns",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s dest/renderer/static -p 6006",
     "build-storybook": "build-storybook"
   },
   "repository": {
