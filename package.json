@@ -65,7 +65,7 @@
     "babel-runtime": "6.20.0",
     "baobab": "2.3.4",
     "baobab-react": "2.1.2",
-    "googleapis": "15.0.0",
+    "googleapis": "39.1.0",
     "lodash": "4.17.3",
     "menubar": "5.2.0",
     "react": "15.4.1",
