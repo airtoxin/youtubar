@@ -48,7 +48,7 @@
     "babel-register": "6.18.0",
     "copyfiles": "1.0.0",
     "devtron": "1.4.0",
-    "electron": "9.4.0",
+    "electron": "18.3.7",
     "electron-packager": "8.4.0",
     "eslint": "3.12.2",
     "eslint-config-airbnb": "13.0.0",
